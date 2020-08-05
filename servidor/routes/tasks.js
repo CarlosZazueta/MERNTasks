@@ -25,4 +25,16 @@ router.get('/',
     tasksController.getTasks
 );
 
+// Update task state
+router.put('/:id',
+    auth,
+    tasksController.updateTask
+);
+
+// Delete task
+router.delete('/:id',
+    auth,
+    tasksController.deleteTask
+);
+
 module.exports = router;

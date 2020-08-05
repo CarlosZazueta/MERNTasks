@@ -66,3 +66,68 @@ exports.getTasks = async (req, res) => {
         res.status(500).send('There was an error!');
     }
 }
+
+exports.updateTask = async (req, res) => {
+    try {
+        // Getting existing project and task
+        const {project, name, state} = req.body;
+        
+        let existTask = await Task.findById(req.params.id);
+
+        if (!existTask) {
+            return res.status(404).json({ msg: 'Task does not exist' });
+        }
+
+        // Get project
+        const existProject = await Project.findById(project);
+
+        if(existProject.creator.toString() !== req.user.id) {
+            return res.status(401).json({ msg: 'User not authorized' });
+        }
+        
+        // Create object with new info
+        const newTask = {};
+        if (name) newTask.name = name; 
+        if (state) newTask.state = state;
+
+        // Save task
+        existTask = await Task.findByIdAndUpdate(
+            { _id: req.params.id},
+            newTask,
+            { new: true }
+        );
+
+        res.json({existTask});
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('There was an error!');
+    }
+}
+
+exports.deleteTask = async (req, res) => {
+    try {
+        // Getting existing project and task
+        const {project} = req.body;
+        
+        let existTask = await Task.findById(req.params.id);
+
+        if (!existTask) {
+            return res.status(404).json({ msg: 'Task does not exist' });
+        }
+
+        // Get project
+        const existProject = await Project.findById(project);
+
+        if(existProject.creator.toString() !== req.user.id) {
+            return res.status(401).json({ msg: 'User not authorized' });
+        }
+
+        // Delete
+        await Task.findByIdAndRemove({ _id: req.params.id });
+        res.json({ msg: 'Task deleted' });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('There was an error!');
+    }
+}
