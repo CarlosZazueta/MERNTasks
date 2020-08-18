@@ -4,7 +4,8 @@ import {
     AGREGAR_PROYECTO,
     VALIDAR_FORMULARIO,
     PROYECTO_ACTUAL,
-    ELIMINAR_PROYECTO
+    ELIMINAR_PROYECTO,
+    PROYECTO_ERROR
 } from '../../types/index.jsx';
 
 export default (state, action) => {
@@ -34,13 +35,18 @@ export default (state, action) => {
         case PROYECTO_ACTUAL:
             return {
                 ...state,
-                project: state.projects.filter(project => project.id === action.payload)
+                project: state.projects.filter(project => project._id === action.payload)
             }
         case ELIMINAR_PROYECTO:
             return {
                 ...state,
-                projects: state.projects.filter(project => project.id !== action.payload),
+                projects: state.projects.filter(project => project._id !== action.payload),
                 project: null
+            }
+        case PROYECTO_ERROR:
+            return {
+                ...state,
+                msg: action.payload
             }
         default: 
             return state;

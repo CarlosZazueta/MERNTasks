@@ -17,12 +17,12 @@ exports.createTask = async (req, res) => {
         const existProject = await Project.findById(project);
 
         if (!existProject) {
-            return res.status(404).json({ msg: 'Project not found!' });
+            return res.status(404).json({ msg: 'Proyecto no encontrado!' });
         }
 
         // Checking if current project belong to authenticated user
         if (existProject.creator.toString() !== req.user.id) {
-            return res.status(401).json({msg: 'User not authorized'});
+            return res.status(401).json({msg: 'Usuario no autorizado!'});
         }
 
         // Creating task
@@ -51,11 +51,11 @@ exports.getTasks = async (req, res) => {
 
         const existProject = await Project.findById(project);
         if (!existProject) {
-            return res.status(404).json({ msg: 'Project not found!'});
+            return res.status(404).json({ msg: 'Proyecto no encontrado!'});
         }
 
         if(existProject.creator.toString() !== req.user.id) {
-            return res.status(401).json({ msg: 'User not authorized' });
+            return res.status(401).json({ msg: 'Usuario no autorizado!' });
         }
 
         // Get task(s)
@@ -75,14 +75,14 @@ exports.updateTask = async (req, res) => {
         let existTask = await Task.findById(req.params.id);
 
         if (!existTask) {
-            return res.status(404).json({ msg: 'Task does not exist' });
+            return res.status(404).json({ msg: 'Proyecto no encontrado!' });
         }
 
         // Get project
         const existProject = await Project.findById(project);
 
         if(existProject.creator.toString() !== req.user.id) {
-            return res.status(401).json({ msg: 'User not authorized' });
+            return res.status(401).json({ msg: 'Usuario no autorizado!' });
         }
         
         // Create object with new info
@@ -113,14 +113,14 @@ exports.deleteTask = async (req, res) => {
         let existTask = await Task.findById(req.params.id);
 
         if (!existTask) {
-            return res.status(404).json({ msg: 'Task does not exist' });
+            return res.status(404).json({ msg: 'La tarea no existe!' });
         }
 
         // Get project
         const existProject = await Project.findById(project);
 
         if(existProject.creator.toString() !== req.user.id) {
-            return res.status(401).json({ msg: 'User not authorized' });
+            return res.status(401).json({ msg: 'Usuario no autorizado!' });
         }
 
         // Delete

@@ -28,7 +28,7 @@ exports.createUser = async (req, res) => {
 
         if (user) {
             return res.status(400).json({
-                msg: 'User already exists!'
+                msg: 'El usuario ya existe!'
             });
         }
 
@@ -54,7 +54,7 @@ exports.createUser = async (req, res) => {
             expiresIn: 3600 // 1 hour
         }, (error, token) => {
             if (error) throw error;
-            res.json({msg: 'User created successfully', token});
+            res.json({msg: 'Usuario creado exitosamente!', token});
         });
     } catch (error) {
         console.log(error);

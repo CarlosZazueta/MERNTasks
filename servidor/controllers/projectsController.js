@@ -65,12 +65,12 @@ exports.updateProject = async (req, res) => {
 
         // if project exists
         if (!project) {
-            return res.status(404).json({msg:'Project not found!'});
+            return res.status(404).json({msg:'Proyecto no encontrado!'});
         }
 
         //check creator
         if (project.creator.toString() !== req.user.id) {
-            return res.status(401).json({msg: 'User not authorized'});
+            return res.status(401).json({msg: 'Usuario no autorizado!'});
         }
 
         // update project
@@ -96,17 +96,17 @@ exports.deleteProject = async (req, res) => {
 
         // if project exists
         if (!project) {
-            return res.status(404).json({msg:'Project not found!'});
+            return res.status(404).json({msg:'Proyecto no encontrado!'});
         }
 
         //check creator
         if (project.creator.toString() !== req.user.id) {
-            return res.status(401).json({msg: 'User not authorized'});
+            return res.status(401).json({msg: 'Usuario no autorizado!'});
         }
 
         // Delete project
         await Project.findOneAndRemove({ _id: req.params.id});
-        res.json({msg: 'Project removed!'});
+        res.json({msg: 'Proyecto eliminado!'});
 
     } catch (error) {
         console.log(error);
