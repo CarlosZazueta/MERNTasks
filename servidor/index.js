@@ -17,7 +17,7 @@ app.use(express.json({
 }));
 
 // App port
-const PORT = process.env.PORT || 4000;
+const port = process.env.port || 4000;
 
 // Routes
 app.use('/api/users', require('./routes/users.js'));
@@ -26,6 +26,6 @@ app.use('/api/projects', require('./routes/projects.js'));
 app.use('/api/tasks', require('./routes/tasks.js'));
 
 // Run app
-app.listen(PORT, () => {
-    console.log(`Server running on port: ${PORT}`);
+app.listen(port, '0.0.0.0', () => {
+    console.log(`Server running on port: ${port}`);
 });
